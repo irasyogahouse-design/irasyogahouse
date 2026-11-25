@@ -8,7 +8,8 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
+import { inject } from "@vercel/analytics";
 
 import appCss from "../styles.css?url";
 import { BookingProvider } from "@/components/booking";
@@ -247,6 +248,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    inject();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BookingProvider>
